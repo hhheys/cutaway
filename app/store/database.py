@@ -14,7 +14,6 @@ class Database(BaseAccessor):
 
     def __init__(self, app: "Application"):
         super().__init__(app)
-        db_config = self.app.config.database
         self.engine = create_async_engine(
-            url=f"postgresql+asyncpg://{db_config.user}:{db_config.password}@{db_config.host}:{db_config.port}/{db_config.database}"
+            url=self.app.config.db_url
         )
