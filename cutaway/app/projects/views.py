@@ -40,6 +40,9 @@ class ProjectAdd(View):
 
         file_extension = str(Path(filename).suffix).lower()
 
+        if not os.path.exists("static/img/cards"):
+            os.mkdir("static/img/cards")
+
         with open(os.path.join("static/img/cards", f"{title}{file_extension}"), 'wb+') as f:
             f.write(file.read())
 
