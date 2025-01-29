@@ -11,7 +11,7 @@ from app.web.utils import BaseAccessor
 class AdminAccessor(BaseAccessor):
     async def create_admin(
         self, login: str, password: str
-    ) -> Admin | None:
+    ) -> Admin:
         hash_password = hashlib.sha256(
             bytearray(password, encoding="utf-8")
         ).hexdigest()
