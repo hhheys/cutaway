@@ -8,3 +8,4 @@ asyncpg~=0.30.0
 aiohttp_session~=2.12.1
 cryptography~=44.0.0
 python-dotenv~=1.0.1
+psycopg2-binary~=2.9.10

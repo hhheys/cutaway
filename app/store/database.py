@@ -1,3 +1,4 @@
+import asyncio
 import typing
 
 from sqlalchemy.ext.asyncio import AsyncEngine, create_async_engine
