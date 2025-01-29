@@ -1,0 +1,94 @@
+h1, h2, a, h5, p, .card-title, label, .form-text, .form-label{
+    font-family: "Manrope", serif;
+    color: white;
+    text-decoration: none;
+}
+h2, .secondary{
+    color: #c7c7c7;
+    font-weight: 400;
+}
+
+.card-title{
+    font-weight: 600;
+}
+
+body{
+    background-color: #212224;
+}
+h1 {
+    font-size: calc(5em + 5vw);
+    /*font-size: 7rem;*/
+    font-weight: 800;
+    text-transform: uppercase;
+    text-align: center;
+    color: transparent; /* Текст сам по себе становится прозрачным */
+    /* Градиентный фон */
+  }
+
+.glow-text {
+    color: white;
+    position: relative;
+    letter-spacing: 2px;
+}
+
+.icon{
+    width: 4rem;
+}
+
+.icon:hover{
+    filter: brightness(.6);
+    transition: all 140ms linear;
+}
+
+.button{
+    border: solid;
+    border-width: 2px;
+    border-radius: 32px;
+    padding: 10px 20px 10px 20px;
+    font-family: "Manrope", serif;
+    color: white;
+    text-decoration: none;
+}
+
+.parent {
+    min-height: 100vh;
+  }
+
+.card{
+    background-color: rgba(0, 0, 0, 0);
+    border-width: 3px;
+    border-color: #303133;
+}
+.button:hover{
+    background-color: whitesmoke;
+    border-color: whitesmoke;
+    color: #212224;
+    transition: all 190ms linear;
+}
+
+.glow-text::before {
+    content: "HI THERE!";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    color: transparent;
+    -webkit-text-stroke: 10px transparent;
+    background: linear-gradient(90deg, #0094FF, #40DBF0, #5FE4AF, #F89941, #FF9900, #FFE500, #FF9900, #F89941, #5FE4AF, #40DBF0, #0094FF, #0094FF, #40DBF0, #5FE4AF, #F89941, #FF9900, #FFE500, #FF9900, #F89941, #5FE4AF, #40DBF0, #0094FF);
+    background-size: 200%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    filter: blur(16px) brightness(1.2); /* Более утонченное размытие */
+    animation: gradient-glow 10s infinite linear;
+    z-index: -1;
+}
+
+@keyframes gradient-glow {
+    0% {
+        background-position: 0%;
+    }
+    100%{
+        background-position: 100%;
+    }
+}
