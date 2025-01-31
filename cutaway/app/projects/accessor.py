@@ -46,3 +46,17 @@ class ProjectAccessor(BaseAccessor):
                 select(Project)
             )
             return res.scalars().all()
+
+    async def delete_project(self, pr_id: int):
+        async_session = async_sessionmaker(
+            self.app.store.database.engine, expire_on_commit=True, class_=AsyncSession
+        )
+        async with async_session() as session:
+            try:
+                result = await session.execute(select(Project).where(Project.id == pr_id))
+                pr = result.scalars().first()
+                if pr is not None:
+                    await session.delete(pr)
+                await session.commit()
+            except IntegrityError:
+                print("err")
