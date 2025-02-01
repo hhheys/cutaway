@@ -1,4 +1,3 @@
-import asyncio
 import typing
 
 from app.admin.accessor import AdminAccessor
@@ -15,6 +14,7 @@ class Store:
 
         self.project = ProjectAccessor(application)
         self.admin = AdminAccessor(application)
+
 
 def setup_store(application: "Application"):
     application.store = Store(application)

@@ -1,5 +1,3 @@
-from pathlib import Path
-
 from aiohttp.web import run_app
 from dotenv import load_dotenv
 

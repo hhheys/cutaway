@@ -9,19 +9,22 @@ from sqlalchemy.orm import DeclarativeBase
 if typing.TYPE_CHECKING:
     from app.web.app import Application
 
+
 class BaseAccessor:
     def __init__(self, app, *args, **kwargs):
-        self.app: "Application" = app
+        self.app: Application = app
+
 
 class BaseModel(DeclarativeBase):
     pass
 
-def setup_environment(application:"Application"):
+
+def setup_environment(application: "Application"):
     env = Environment(
-        loader=PackageLoader("app"),
-        autoescape=select_autoescape()
+        loader=PackageLoader("app"), autoescape=select_autoescape()
     )
     application.jinja_env = env
+
 
 def auth_required(func):
     @wraps(func)
@@ -35,9 +38,8 @@ def auth_required(func):
 
     return inner
 
+
 async def validate_session(request):
     session = await get_session(request)
     data = session.get("manager")
-    if data:
-        return True
-    return False
+    return bool(data)
