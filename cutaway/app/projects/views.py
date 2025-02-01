@@ -59,18 +59,20 @@ class ProjectAdd(View):
         if not os.path.exists("static/img/cards"):
             os.mkdir("static/img/cards")
 
-        with aiofiles.open(
+        async with aiofiles.open(
             os.path.join("static/img/cards", filename), "wb+"
         ) as f:
-            f.write(file.read())
+            await f.write(file.read())
+
+        priority = data.get("priority", 1)
 
         values = {
             "title": title,
             "description": data.get("description", ""),
             "image_filename": filename,
             "link": data.get("link", ""),
-            "github_link": data.get("github_link", ""),
-            "priority": int(data.get("priority", -1)),
+            "github_link": data.get("github", ""),
+            "priority": int(priority) if priority else 1,
         }
 
         res = await self.request.app.store.project.create_project(
