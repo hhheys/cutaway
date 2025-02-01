@@ -1,8 +1,10 @@
 import aiohttp_jinja2
 import jinja2
-from aiohttp.web import Application as AiohttpApplication
-from aiohttp.web import Request as AiohttpRequest
-from aiohttp.web import View as AiohttpView
+from aiohttp.web import (
+    Application as AiohttpApplication,
+    Request as AiohttpRequest,
+    View as AiohttpView,
+)
 from aiohttp_session import setup
 from aiohttp_session.cookie_storage import EncryptedCookieStorage
 from jinja2 import Environment
@@ -18,6 +20,7 @@ class Application(AiohttpApplication):
     config: Config = None
     jinja_env: Environment = None
 
+
 class Request(AiohttpRequest):
     @property
     def app(self) -> Application:
@@ -32,12 +35,11 @@ class View(AiohttpView):
 
 app = Application()
 
+
 def setup_app():
     register_urls(app)
-    aiohttp_jinja2.setup(app,
-                         loader=jinja2.FileSystemLoader('./templates'))
+    aiohttp_jinja2.setup(app, loader=jinja2.FileSystemLoader("./templates"))
     setup_config(app)
     setup_store(app)
-    setup(app,
-          EncryptedCookieStorage(b'Thirty  two  length  bytes  key.'))
+    setup(app, EncryptedCookieStorage(b"Thirty  two  length  bytes  key."))
     return app

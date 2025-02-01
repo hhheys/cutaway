@@ -1,17 +1,15 @@
 import hashlib
 
-from sqlalchemy import select, and_
+from sqlalchemy import and_, select
 from sqlalchemy.exc import IntegrityError
-from sqlalchemy.ext.asyncio import async_sessionmaker, AsyncSession
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 
 from app.admin.models import Admin
 from app.web.utils import BaseAccessor
 
 
 class AdminAccessor(BaseAccessor):
-    async def create_admin(
-        self, login: str, password: str
-    ) -> Admin:
+    async def create_admin(self, login: str, password: str) -> Admin:
         hash_password = hashlib.sha256(
             bytearray(password, encoding="utf-8")
         ).hexdigest()
@@ -19,7 +17,9 @@ class AdminAccessor(BaseAccessor):
         admin = Admin(login=login, password=hash_password)
 
         async_session = async_sessionmaker(
-            self.app.store.database.engine, expire_on_commit=True, class_=AsyncSession
+            self.app.store.database.engine,
+            expire_on_commit=True,
+            class_=AsyncSession,
         )
         async_session.configure(bind=self.app.store.database.engine)
         async with async_session() as session:
@@ -33,7 +33,9 @@ class AdminAccessor(BaseAccessor):
 
     async def validate_admin(self, login, password):
         async_session = async_sessionmaker(
-            self.app.store.database.engine, expire_on_commit=True, class_=AsyncSession
+            self.app.store.database.engine,
+            expire_on_commit=True,
+            class_=AsyncSession,
         )
         async_session.configure(bind=self.app.store.database.engine)
         async with async_session() as session:

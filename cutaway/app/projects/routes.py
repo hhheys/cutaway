@@ -1,6 +1,6 @@
 import typing
 
-from app.projects.views import ProjectList, ProjectAdd, ProjectDelete
+from app.projects.views import ProjectAdd, ProjectDelete, ProjectList
 
 if typing.TYPE_CHECKING:
     from app.web.app import Application
