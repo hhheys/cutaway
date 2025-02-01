@@ -11,7 +11,9 @@ CREATE TABLE IF NOT EXISTS projects (
     title VARCHAR UNIQUE NOT NULL,
     description VARCHAR NULL,
     link VARCHAR NULL,
-    github_link VARCHAR NULL
+    github_link VARCHAR NULL,
+    "order" INTEGER NULL DEFAULT 0,
+    image_filename VARCHAR NOT NULL
 );
 
 -- Создание таблицы пользователей
