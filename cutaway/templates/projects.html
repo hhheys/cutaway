@@ -22,34 +22,79 @@
             </a>
 
             <h2 class="text-center fw-semibold col">Мои проекты</h2>
+            {% if is_admin %}
+            <a href="/api/projects/add" class="text-center fw-semibold mw-1">Добавить</a>
+            {% endif %}
           </div>
     </div>
 
     <div class="container mt-5">
         <div class="row">
-          <!-- Первая карточка проекта -->
-            {% for project in projects %}
-              <div class="col-md-4 mb-4">
-                <div class="card">
-                  <img src="../static/img/cards/{{project.title}}.jpg" class="card-img-top object-fit-cover" alt="{{project.title}} project" style="height: 250px">
-                  <div class="card-body">
-                    <h3 class="card-title">{{project.title}}</h3>
-                      {% if project.description %}
-                        <p class="secondary card-text">{{project.description}}</p>
-                      {% endif %}
+{% if projects|length == 0 %}
+    <div class="d-flex flex-grow-1 justify-content-center align-items-center">
+        <h2 class="text-center fs-5 my-5">Проектов пока нет...</h2>
+    </div>
+{% else %}
+    {% for project in projects %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 d-flex flex-column">
+                <div class="card-body flex-grow-1 p-0">
+                    {% if is_admin %}
+                        <a href="/api/projects/del?id={{ project.id }}"
+                           onclick="deleteCard(event, this, {{ project.id }})"
+                           class="close-btn">&times;</a>
+                    {% endif %}
+                    <img src="../static/img/cards/{{project.image_filename}}"
+                         class="card-img-top object-fit-cover"
+                         alt="{{project.title}} project"
+                         style="height: 250px">
 
-                      {% if project.github_link %}
-                      <a href="{{project.github_link}}"><img src="../static/img/github.png" class="icon rounded mx-auto d-block" alt="project link github"></a>
-                      {% endif %}
-                      {% if project.link %}
-                      <a href="{{project.link}}"><img src="../static/img/github.png" class="icon rounded mx-auto d-block" alt="project link github"></a>
-                      {% endif %}
-
-                  </div>
+                    <h3 class="card-title p-3">{{project.title}}</h3>
+                    {% if project.description %}
+                        <p class="secondary card-text px-4">{{project.description}}</p>
+                    {% endif %}
                 </div>
-              </div>
-            {% endfor %}
+
+                <div class="card-footer mt-auto my-3 d-flex justify-content-center align-items-center" style="border-top: none;">
+                    {% if project.github_link %}
+                        <div class="col-auto mx-3">
+                            <a href="{{project.github_link}}">
+                                <img src="../static/img/github.png" class="icon rounded mx-auto d-block" alt="project link github">
+                            </a>
+                        </div>
+                    {% endif %}
+                    {% if project.link %}
+                        <div class="col-auto mx-3">
+                            <a href="{{project.link}}">
+                                <img src="../static/img/link.svg" class="icon rounded mx-auto d-block" alt="project link">
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}
+
         </div>
       </div>
+
+<script>
+    async function deleteCard(event, element, cardId) {
+        event.preventDefault();
+        let apiUrl = `/api/projects/del?id=${cardId}`;
+
+        try {
+            let response = await fetch(apiUrl, { method: 'DELETE' });
+            location.reload();
+            if (!response.ok) {
+                alert("Не удалось удалить карточку");
+            }
+        } catch (error) {
+            console.error("Ошибка запроса:", error);
+            alert("Не удалось удалить карточку");
+        }
+    }
+</script>
 </body>
 </html>

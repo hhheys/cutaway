@@ -13,4 +13,6 @@ class Project(BaseModel):
     description: Mapped[str] = mapped_column(String(), nullable=True)
     link: Mapped[str] = mapped_column(String(), nullable=True)
     github_link: Mapped[str] = mapped_column(String(), nullable=True)
+    order: Mapped[int] = mapped_column(Integer(), nullable=True, default=0)
+    image_filename: Mapped[str] = mapped_column(String(), nullable=False)
 

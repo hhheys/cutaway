@@ -34,3 +34,10 @@ def auth_required(func):
         raise HTTPUnauthorized
 
     return inner
+
+async def validate_session(request):
+    session = await get_session(request)
+    data = session.get("manager")
+    if data:
+        return True
+    return False
