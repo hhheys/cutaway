@@ -25,6 +25,9 @@ jobs:
           # Получение последних изменений
           git pull origin main
 
+          docker stop app_backend
+          docker rm app_backend
+
           # Перезапуск контейнеров
           docker compose down
           docker compose build --no-cache
