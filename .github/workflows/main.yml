@@ -34,7 +34,7 @@ jobs:
       run: |
         ssh -o StrictHostKeyChecking=no root@217.196.99.151 << 'EOF'
           docker pull hheys/cutaway:latest
-          docker stop cutaway || true
-          docker rm cutaway || true
+          docker stop app_backend || true
+          docker rm app_backend || true
           docker run -d --name cutaway -p 80:3000 hheys/cutaway:latest
         EOF
