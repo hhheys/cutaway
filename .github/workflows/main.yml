@@ -33,9 +33,8 @@ jobs:
     - name: Deploy to Server via SSH
       run: |
         ssh -o StrictHostKeyChecking=no root@217.196.99.151 << 'EOF'
-          cd site/cutaway # Папка на сервере
-          git pull origin main
-          docker-compose down
-          docker-compose build --no-cache
-          docker-compose up -d
+          docker pull hheys/cutaway:latest
+          docker stop cutaway || true
+          docker rm cutaway || true
+          docker run -d --name cutaway -p 80:3000 hheys/cutaway:latest
         EOF
