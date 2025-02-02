@@ -27,10 +27,9 @@ jobs:
         tags: hheys/cutaway:latest
 
     - name: Setting ssh key
-      uses: webfactory/ssh-agent@v0.7.0
+      uses: truemark/ssh-agent-hosts-action@v1
       with:
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
+          private-key-path: ${{ secrets.SSH_PRIVATE_KEY }}
     - name: Deploy on server
       run: |
         ssh -o StrictHostKeyChecking=no root@217.196.99.151 << 'EOF'
