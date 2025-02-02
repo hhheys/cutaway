@@ -36,5 +36,5 @@ jobs:
           docker pull hheys/cutaway:latest
           docker stop app_backend || true
           docker rm app_backend || true
-          docker run -d --name cutaway -p 80:3000 hheys/cutaway:latest
+          docker run -d --name app_backend -p 80:3000 hheys/cutaway:latest
         EOF
