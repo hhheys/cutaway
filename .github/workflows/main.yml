@@ -23,7 +23,7 @@ jobs:
           cd site/cutaway
 
           # Получение последних изменений
-          git pull origin main
+          git pull origin main --no-rebase
 
           docker stop app_backend
           docker rm app_backend
