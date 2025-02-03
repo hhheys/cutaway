@@ -14,10 +14,11 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-
+    networks:
+      - app_network
     volumes:
       - data:/var/lib/postgresql/data
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+#      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
 
   backend:
@@ -30,11 +31,18 @@ services:
       - db
     environment:
       DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      ALEMBIC_DB_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
     ports:
       - "8080:8080"
     volumes:
       - .:/cutaway
     command: ["python", "main.py"]
+    networks:
+      - app_network
 
 volumes:
   data:
+
+networks:
+  app_network:
+    driver: bridge
