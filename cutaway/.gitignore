@@ -10,6 +10,8 @@ __pycache__/
 # C extensions
 *.so
 
+static/img/cards
+
 # Distribution / packaging
 .Python
 build/
