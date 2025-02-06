@@ -26,7 +26,6 @@ jobs:
           git pull origin main --no-rebase
 
           docker stop app_backend
-          docker rm app_backend
 
           # Перезапуск контейнеров
           docker compose down
