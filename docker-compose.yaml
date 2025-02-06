@@ -36,12 +36,14 @@ services:
       - "8080:8080"
     volumes:
       - .:/cutaway
+      - images:/cutaway/static/img/cards
     command: ["python", "main.py"]
     networks:
       - app_network
 
 volumes:
   data:
+  images:
 
 networks:
   app_network:
