@@ -25,4 +25,4 @@ CREATE TABLE IF NOT EXISTS admins (
 
 -- Вставка начальных данных
 INSERT INTO admins (login, password) VALUES
-('root', ENCODE(DIGEST('123456', 'sha256'), 'hex'))
+('root', ENCODE(DIGEST('123456', 'sha256'), 'hex'));

@@ -17,8 +17,8 @@ services:
     networks:
       - app_network
     volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
       - data:/var/lib/postgresql/data
-#      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
 
   backend:
@@ -36,7 +36,7 @@ services:
       - "8080:8080"
     volumes:
       - .:/cutaway
-      - images:/cutaway/static/img/cards
+      - ./cutaway/static/img/cards:/app/static/img/cards
     command: ["python", "main.py"]
     networks:
       - app_network

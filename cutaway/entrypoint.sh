@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 until pg_isready -h db -p 5432; do
   echo "Waiting for PostgreSQL..."
